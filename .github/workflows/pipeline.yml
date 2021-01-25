@@ -40,8 +40,8 @@ jobs:
   #       run: npm run build
       - name: run the tests
         run: npm run test
-      # - uses: akhileshns/heroku-deploy@v3.8.9
-      #   with:
-      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-      #     heroku_app_name: "lotsofdots-client" 
-      #     heroku_email: "hyvarinen.satu.i@gmail.com"
+      - uses: akhileshns/heroku-deploy@v3.8.9
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}} 
+          heroku_email: ${{secrets.HEROKU_APP_EMAIL}}
