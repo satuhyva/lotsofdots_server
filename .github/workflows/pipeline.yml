@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: '12.x'
       - name: perform npm installations
-  #       run: npm install
+        run: npm install
   #     - name: lint the code
   #       run: npm run eslint
   #     - name: build the app
