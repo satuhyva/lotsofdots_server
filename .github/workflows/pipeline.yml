@@ -32,9 +32,10 @@ jobs:
         run: npm install
   #     - name: lint the code
   #       run: npm run eslint
-
       - name: perform build for tests
         run: npm run tsc
+      - name: setup database tables
+        run: node build/src/database/createDatabase.js
 
   #     - name: build the app
   #       run: npm run build
