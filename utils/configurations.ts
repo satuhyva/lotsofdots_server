@@ -9,6 +9,7 @@ const DB_PASSWORD = process.env.DB_PASSWORD
 const DB_DATABASE = process.env.DB_DATABASE
 const DB_SSL = process.env.DB_SSL
 const NODE_ENV = process.env.NODE_ENV
+const DATABASE_URL = process.env.DATABASE_URL
 
 export default {
     PORT,
@@ -18,5 +19,6 @@ export default {
     DB_PASSWORD,
     DB_DATABASE,
     DB_SSL,
-    NODE_ENV
+    NODE_ENV,
+    DATABASE_URL
 }
