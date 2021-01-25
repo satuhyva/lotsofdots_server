@@ -1,0 +1,46 @@
+# https://spin.atomicobject.com/2020/01/20/github-actions-react-node/
+
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports: 5432:5432
+
+
+  # simple_deployment:
+  #   runs-on: ubuntu-18.04
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: '12.x'
+  #     - name: perform npm installations
+  #       run: npm install
+  #     - name: lint the code
+  #       run: npm run eslint
+  #     - name: build the app
+  #       run: npm run build
+  #     - name: run the tests
+  #       run: npm run test
+      # - uses: akhileshns/heroku-deploy@v3.8.9
+      #   with:
+      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_app_name: "lotsofdots-client" 
+      #     heroku_email: "hyvarinen.satu.i@gmail.com"
