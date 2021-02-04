@@ -12,6 +12,10 @@ const votings_1 = __importDefault(require("./routes/votings"));
 const answers_1 = __importDefault(require("./routes/answers"));
 const configurations_1 = __importDefault(require("../utils/configurations"));
 const app = express_1.default();
+app.use((_request, response, next) => {
+    response.header('Access-Control-Allow-Origin', '*');
+    next();
+});
 app.use(cors_1.default());
 app.use(express_1.default.json());
 if (configurations_1.default.NODE_ENV !== 'test') {
