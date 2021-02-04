@@ -5,8 +5,14 @@ const initializationOptions = {}
 const pgpWithInitializationOptions = pgp(initializationOptions)
 
 let connectionString = environmentVariables.DATABASE_URL || 'postgres://postgres:postgres@localhost:5432/postgres'
-connectionString += '?ssl=true'
+if (environmentVariables.NODE_ENV !== 'test'){
+    connectionString += '?sslmode=require'
+}
 
+
+
+// . ?sslmode=require   ?ssl=true
+// Alternatively, you can omit the ssl configuration object if you specify the PGSSLMODE config var: heroku config:set PGSSLMODE=no-verify.
 
 
 export default pgpWithInitializationOptions(connectionString)
