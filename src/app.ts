@@ -9,7 +9,10 @@ import environmentVariables from '../utils/configurations'
 
 
 const app = express()
-
+app.use((_request, response, next) => {
+    response.header('Access-Control-Allow-Origin', '*')
+    next()
+  })
 
 app.use(cors())
 app.use(express.json())
