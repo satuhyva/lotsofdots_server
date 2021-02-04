@@ -23,6 +23,7 @@ votingsRouter.post('/', async (request, response, next) => {
         const createdNewVotingNumber = await votingsService.createNewVoting(newVoting)
         response.json(createdNewVotingNumber) 
     } catch (error) {
+        console.log(error)
         const serverError: ServerError = error as ServerError
         serverError.addedMessage = 'Error in creating new voting.'
         serverError.addedStatusCode = 500
