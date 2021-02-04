@@ -7,7 +7,6 @@ const server = http.createServer(app)
 const PORT = environmentVariables.PORT
 
 
-
 server.listen(PORT, () => {
     console.log(`LotsOfDots sql server running on port ${PORT as string}`)
 })
