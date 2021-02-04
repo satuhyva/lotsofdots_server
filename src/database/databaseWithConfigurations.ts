@@ -4,7 +4,10 @@ import pgp from 'pg-promise'
 const initializationOptions = {}
 const pgpWithInitializationOptions = pgp(initializationOptions)
 
-const connectionString = environmentVariables.DATABASE_URL || 'postgres://postgres:postgres@localhost:5432/postgres'
+let connectionString = environmentVariables.DATABASE_URL || 'postgres://postgres:postgres@localhost:5432/postgres'
+connectionString += '?ssl=true'
+
+
 
 export default pgpWithInitializationOptions(connectionString)
 
