@@ -5,6 +5,7 @@ const initializationOptions = {}
 const pgpWithInitializationOptions = pgp(initializationOptions)
 
 let connectionString = environmentVariables.DATABASE_URL || 'postgres://postgres:postgres@localhost:5432/postgres'
+console.log('-----------------', environmentVariables.NODE_ENV)
 if (environmentVariables.NODE_ENV !== 'test'){
     connectionString += '?sslmode=require'
 }
