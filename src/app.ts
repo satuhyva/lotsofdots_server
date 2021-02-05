@@ -6,13 +6,9 @@ import errorHandler from '../utils/errorHandler'
 import votings from './routes/votings'
 import answers from './routes/answers'
 import environmentVariables from '../utils/configurations'
-console.log('************************')
-console.log(environmentVariables.DATABASE_URL)
+
+
 const app = express()
-app.use((_request, response, next) => {
-    response.header('Access-Control-Allow-Origin', '*')
-    next()
-  })
 
 app.use(cors())
 app.use(express.json())

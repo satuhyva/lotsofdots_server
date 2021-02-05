@@ -14,16 +14,15 @@ const databaseConfigurations = {
 }
 
 const client = new pg.Client(databaseConfigurations)
-
-
-const createOrResetDatabase = () => {
-    const query =   'DROP TABLE IF EXISTS answer; ' +
-                    'DROP TABLE IF EXISTS option; ' +
-                    'DROP TABLE IF EXISTS voting; '
+export const query =    'DROP TABLE IF EXISTS answer; ' +
+                        'DROP TABLE IF EXISTS option; ' +
+                        'DROP TABLE IF EXISTS voting; '
         .concat(queryCreateTableVoting)
         .concat(queryCreateTableOption)
         .concat(queryCreateTableAnswer)
-    
+
+
+const createOrResetDatabase = () => {
     client
         .query(query)
         .then(() => {
