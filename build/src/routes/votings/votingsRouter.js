@@ -13,19 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const votingsService_1 = __importDefault(require("../services/votingsService"));
-const toValidatedNewVoting_1 = __importDefault(require("../../utils/toValidatedNewVoting"));
-const toValidatedVotingNumber_1 = __importDefault(require("../../utils/toValidatedVotingNumber"));
+const votingsService_1 = __importDefault(require("./votingsService"));
+const votingsValidation_1 = require("./votingsValidation");
 const votingsRouter = express_1.Router();
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 votingsRouter.post('/', (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('************', request.body);
     let newVoting;
     try {
-        newVoting = toValidatedNewVoting_1.default(request.body);
+        newVoting = votingsValidation_1.validatedNewVoting(request.body);
     }
     catch (error) {
-        console.log(error);
         next(error);
         return;
     }
@@ -34,7 +31,6 @@ votingsRouter.post('/', (request, response, next) => __awaiter(void 0, void 0, v
         response.json(createdNewVotingNumber);
     }
     catch (error) {
-        console.log(error);
         const serverError = error;
         serverError.addedMessage = 'Error in creating new voting.';
         serverError.addedStatusCode = 500;
@@ -46,7 +42,7 @@ votingsRouter.post('/', (request, response, next) => __awaiter(void 0, void 0, v
 votingsRouter.get('/:votingNumber', (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     let votingNumber;
     try {
-        votingNumber = toValidatedVotingNumber_1.default(request.params);
+        votingNumber = votingsValidation_1.validatedVotingNumber(request.params);
     }
     catch (error) {
         next(error);
@@ -57,7 +53,6 @@ votingsRouter.get('/:votingNumber', (request, response, next) => __awaiter(void 
         response.json(voting);
     }
     catch (error) {
-        console.log('error', error);
         const serverError = error;
         serverError.addedMessage = 'Error in getting the voting.';
         serverError.addedStatusCode = 500;

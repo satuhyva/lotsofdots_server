@@ -1,11 +1,8 @@
-import database from '../database/databaseWithConfigurations'
-import { ValidatedNewVoting } from '../types/ValidatedNewVoting'
-import { DatabaseResponseIdOnly } from '../types/DatabaseResponseIdOnly'
-import { Voting } from '../types/Voting'
+import database from '../../database/databaseWithConfigurations'
+import { Voting, ValidatedNewVoting } from '../../types/VotingTypes'
 
 
 const getVoting = async (votingNumber: string): Promise<Voting | null> => {
-
     let fetchedVoting: Voting | null = null
     await database.tx(async transaction => {
         fetchedVoting = await database.one(
@@ -31,7 +28,7 @@ const createNewVoting = async (newVoting: ValidatedNewVoting): Promise<string | 
     const dateCreated = new Date()
 
     await database.tx(async transaction => {
-        const createdNewVoting: DatabaseResponseIdOnly = await database.one(
+        const createdNewVoting: {id: number } = await database.one(
             'INSERT INTO voting(question, created, voting_number, show_names, allowed_count) VALUES($1, $2, $3, $4, $5) RETURNING id',
             [newVoting.question, dateCreated, newVotingNumber, newVoting.showNames, newVoting.allowedCount])
             
@@ -51,7 +48,7 @@ export const getUniqueRandomNumberString = async (): Promise<string | null> => {
     let continueLooking = true
     while (continueLooking) {
         randomNumber = getRandomNumberWith6Digits()
-        const idOfVotingWithNumber: DatabaseResponseIdOnly | null = await database.oneOrNone(
+        const idOfVotingWithNumber: { id: number } | null = await database.oneOrNone(
             'SELECT id FROM voting WHERE voting_number = $1 AND deleted = $2',
             [randomNumber, false]
         )

@@ -13,7 +13,7 @@ const toValidatedAnswers = (requestBody) => {
 };
 const parseName = (name) => {
     if (name === undefined)
-        return null;
+        return 'Anon';
     if (!isString(name)) {
         throw new ServerError_1.default(400, 'InputError', 'Voter name is not a string value.');
     }

@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import answersService from '../services/answersService'
-import toValidatedAnswers from '../../utils/toValidatedAnswers'
-import { ValidatedVotingAnswers } from '../types/ValidatedVotingAnswers'
-import ServerError from '../../utils/ServerError'
+import answersService from './answersService'
+import { validatedAnswers } from './answersValidation'
+import { ValidatedVotingAnswers } from '../../types/AnswerTypes'
+import ServerError from '../../../utils/ServerError'
 
 
 const answersRouter = Router()
@@ -12,7 +12,7 @@ answersRouter.post('/', async (request, response, next) => {
 
     let votingAnswers: ValidatedVotingAnswers
     try {
-        votingAnswers = toValidatedAnswers(request.body)
+        votingAnswers = validatedAnswers(request.body)
     } catch (error) {
         next(error)
         return 

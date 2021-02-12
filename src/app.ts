@@ -3,8 +3,8 @@ import cors from 'cors'
 import morgan from 'morgan'
 import unknownEndpoint from '../utils/unknownEndpoint'
 import errorHandler from '../utils/errorHandler'
-import votings from './routes/votings'
-import answers from './routes/answers'
+import votings from './routes/votings/votingsRouter'
+import answers from './routes/answers/answersRouter'
 import environmentVariables from '../utils/configurations'
 
 

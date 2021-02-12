@@ -1,5 +1,5 @@
-import database from '../database/databaseWithConfigurations'
-import { ValidatedVotingAnswers } from '../types/ValidatedVotingAnswers'
+import database from '../../database/databaseWithConfigurations'
+import { ValidatedVotingAnswers } from '../../types/AnswerTypes'
 
 
 
@@ -15,8 +15,8 @@ const addAnswersToVoting = async (votingAnswers: ValidatedVotingAnswers): Promis
     return
 }
 
-const getNameArray = (name: string | null, count: number): string[] | null[] => {
-    const array = new Array(count).fill(name) as string[] | null[]
+const getNameArray = (name: string, count: number): string[] => {
+    const array = new Array(count).fill(name) as string[]
     return array
 }
 

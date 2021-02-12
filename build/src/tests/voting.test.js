@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 const app_1 = __importDefault(require("../app"));
 const server = supertest_1.default(app_1.default);
-const votingsService_1 = require("../services/votingsService");
+const votingsService_1 = require("../routes/votings/votingsService");
 const testHelperFunctions_1 = __importDefault(require("./testHelperFunctions"));
 describe('CREATE NEW VOTING', () => {
     test('A random number with 6 digits can be created.', () => {

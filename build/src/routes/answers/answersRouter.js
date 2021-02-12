@@ -13,17 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const answersService_1 = __importDefault(require("../services/answersService"));
-const toValidatedAnswers_1 = __importDefault(require("../../utils/toValidatedAnswers"));
+const answersService_1 = __importDefault(require("./answersService"));
+const answersValidation_1 = require("./answersValidation");
 const answersRouter = express_1.Router();
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 answersRouter.post('/', (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     let votingAnswers;
     try {
-        votingAnswers = toValidatedAnswers_1.default(request.body);
+        votingAnswers = answersValidation_1.validatedAnswers(request.body);
     }
     catch (error) {
-        console.log('error', error);
         next(error);
         return;
     }

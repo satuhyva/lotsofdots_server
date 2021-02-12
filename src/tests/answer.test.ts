@@ -2,7 +2,7 @@ import supertest from 'supertest'
 import app from '../app'
 const server = supertest(app)
 import  functions from './testHelperFunctions'
-import { Voting } from '../types/Voting'
+import { Voting } from '../types/VotingTypes'
 
 
 describe('ADD ANSWERS TO VOTING', () => {

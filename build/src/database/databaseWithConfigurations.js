@@ -8,17 +8,6 @@ const pg_promise_1 = __importDefault(require("pg-promise"));
 const initializationOptions = {};
 const pgpWithInitializationOptions = pg_promise_1.default(initializationOptions);
 const connectionString = configurations_1.default.DATABASE_URL || 'postgres://postgres:postgres@localhost:5432/postgres';
+// In order to enable Heroku functioning easily, the following has been set in Heroku configuration variables:
+// heroku config:set PGSSLMODE=no-verify
 exports.default = pgpWithInitializationOptions(connectionString);
-// import environmentVariables from '../../utils/configurations'
-// import pgp from 'pg-promise'
-// const databaseConfigurations = {
-//     host: environmentVariables.DB_HOST || 'localhost',
-//     user: environmentVariables.DB_USER || 'postgres',
-//     port: Number(environmentVariables.DB_PORT) || 5432,
-//     database: environmentVariables.DB_DATABASE || 'postgres',
-//     password: environmentVariables.DB_PASSWORD || 'postgres',
-//     ssl: environmentVariables.DB_SSL === 'true' ? true : false,
-// }
-// const initializationOptions = {}
-// const pgpWithInitializationOptions = pgp(initializationOptions)
-// export default pgpWithInitializationOptions(databaseConfigurations)

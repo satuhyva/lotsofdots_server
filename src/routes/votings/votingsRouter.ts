@@ -1,9 +1,8 @@
 import { Router } from 'express'
-import votingsService from '../services/votingsService'
-import toValidatedNewVoting from '../../utils/toValidatedNewVoting'
-import { ValidatedNewVoting } from '../types/ValidatedNewVoting'
-import ServerError from '../../utils/ServerError'
-import toValidatedVotingNumber from '../../utils/toValidatedVotingNumber'
+import votingsService from './votingsService'
+import { validatedNewVoting, validatedVotingNumber } from './votingsValidation'
+import ServerError from '../../../utils/ServerError'
+import { Voting, ValidatedNewVoting } from '../../types/VotingTypes'
 
 
 const votingsRouter = Router()
@@ -13,7 +12,7 @@ votingsRouter.post('/', async (request, response, next) => {
 
     let newVoting: ValidatedNewVoting
     try {
-        newVoting = toValidatedNewVoting(request.body)
+        newVoting = validatedNewVoting(request.body)
     } catch (error) {
         next(error)
         return 
@@ -23,7 +22,6 @@ votingsRouter.post('/', async (request, response, next) => {
         const createdNewVotingNumber = await votingsService.createNewVoting(newVoting)
         response.json(createdNewVotingNumber) 
     } catch (error) {
-        console.log(error)
         const serverError: ServerError = error as ServerError
         serverError.addedMessage = 'Error in creating new voting.'
         serverError.addedStatusCode = 500
@@ -38,16 +36,15 @@ votingsRouter.get('/:votingNumber', async (request, response, next) => {
 
     let votingNumber: string
     try {
-        votingNumber = toValidatedVotingNumber(request.params)
+        votingNumber = validatedVotingNumber(request.params)
     } catch (error) {
         next(error)
         return 
     }
     try {
-        const voting = await votingsService.getVoting(votingNumber)
+        const voting: Voting | null = await votingsService.getVoting(votingNumber)
         response.json(voting) 
     } catch (error) {
-        console.log('error', error)
         const serverError: ServerError = error as ServerError
         serverError.addedMessage = 'Error in getting the voting.'
         serverError.addedStatusCode = 500

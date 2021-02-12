@@ -1,9 +1,9 @@
 import supertest from 'supertest'
 import app from '../app'
 const server = supertest(app)
-import { getRandomNumberWith6Digits } from '../services/votingsService'
+import { getRandomNumberWith6Digits } from '../routes/votings/votingsService'
 import  functions from './testHelperFunctions'
-import { Voting } from '../types/Voting'
+import { Voting } from '../types/VotingTypes'
 
 
 describe('CREATE NEW VOTING', () => {

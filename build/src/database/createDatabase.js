@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.query = void 0;
 const pg_1 = __importDefault(require("pg"));
 const voting_1 = require("./voting");
 const option_1 = require("./option");
@@ -16,15 +17,15 @@ const databaseConfigurations = {
     ssl: false
 };
 const client = new pg_1.default.Client(databaseConfigurations);
+exports.query = 'DROP TABLE IF EXISTS answer; ' +
+    'DROP TABLE IF EXISTS option; ' +
+    'DROP TABLE IF EXISTS voting; '
+        .concat(voting_1.queryCreateTableVoting)
+        .concat(option_1.queryCreateTableOption)
+        .concat(answer_1.queryCreateTableAnswer);
 const createOrResetDatabase = () => {
-    const query = 'DROP TABLE IF EXISTS answer; ' +
-        'DROP TABLE IF EXISTS option; ' +
-        'DROP TABLE IF EXISTS voting; '
-            .concat(voting_1.queryCreateTableVoting)
-            .concat(option_1.queryCreateTableOption)
-            .concat(answer_1.queryCreateTableAnswer);
     client
-        .query(query)
+        .query(exports.query)
         .then(() => {
         console.log('Tables reset or created succesfully!');
         void client.end();
